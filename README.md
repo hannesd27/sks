@@ -15,7 +15,7 @@ The whole repository is published under **`https://einsteinhain.com/sks/`**. The
 | Datenschutzerklärung (German, **primary**) | `https://einsteinhain.com/sks/datenschutz/` | `datenschutz/index.html` | http://localhost:8000/datenschutz/ |
 | Privacy Policy (English translation) | `https://einsteinhain.com/sks/privacy-policy/` | `privacy-policy/index.html` | http://localhost:8000/privacy-policy/ |
 | Impressum | `https://einsteinhain.com/sks/impressum/` | `impressum/index.html` | http://localhost:8000/impressum/ |
-| Start page (redirects to the German policy) | `https://einsteinhain.com/sks/` | `index.html` | http://localhost:8000/ |
+| Landing page (links to the three pages above) | `https://einsteinhain.com/sks/` | `index.html` | http://localhost:8000/ |
 
 The `localhost` addresses only work on your own computer while the preview server is running. They are never given to Apple, Google or users.
 
@@ -27,11 +27,12 @@ Always use the URLs **with** the trailing slash.
 
 ```
 /                             → https://einsteinhain.com/sks/
-├── index.html                redirects (no JavaScript) to datenschutz/
+├── index.html                landing page with links to the pages below
 ├── datenschutz/index.html    German privacy policy (primary)
 ├── privacy-policy/index.html English translation
 ├── impressum/index.html      Impressum (§ 5 DDG)
 ├── css/styles.css            the only stylesheet (light and dark mode)
+├── icons/                    tab and home-screen icons (the app icon, from the app repo)
 ├── .github/workflows/pages.yml  publishes only the files above to GitHub Pages
 ├── docs/                     (not published on the website)
 │   ├── content-notes.md      facts, decisions, sources
@@ -102,7 +103,7 @@ These are the addresses from GitHub's documentation (checked 30 September 2026).
    - https://einsteinhain.com/sks/datenschutz/
    - https://einsteinhain.com/sks/privacy-policy/
    - https://einsteinhain.com/sks/impressum/
-   - https://einsteinhain.com/ (should land on the German policy)
+   - https://einsteinhain.com/ (should land on the SKS landing page)
 3. Then fill in the store forms ([`docs/store-submission.md`](docs/store-submission.md)) and add the link to the app ([`docs/in-app-link.md`](docs/in-app-link.md)).
 
 If you ever move away from GitHub Pages, update the section “Diese Website / This website” in both languages.

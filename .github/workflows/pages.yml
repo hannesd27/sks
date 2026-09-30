@@ -28,7 +28,7 @@ jobs:
       - name: Collect public files
         run: |
           mkdir _site
-          cp -R index.html css datenschutz privacy-policy impressum _site/
+          cp -R index.html css icons datenschutz privacy-policy impressum _site/
           touch _site/.nojekyll
 
       - uses: actions/configure-pages@v5
