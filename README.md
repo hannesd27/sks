@@ -47,14 +47,14 @@ Always use the URLs **with** the trailing slash.
 ## Local preview
 
 ```bash
-cd /Users/hd/apps/einsteinhain/sks && python3 -m http.server 8000
+cd /Users/hd/apps/einsteinhain/web && python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000/. Locally the site runs at `/`; on the web it runs at `/sks/`. All links are relative, so both work without changes.
 
 ## Deployment (GitHub Pages)
 
-The site is hosted on GitHub Pages; the privacy policy's section “Diese Website / This website” describes this. Hosting it at `einsteinhain.com/sks/` needs two GitHub repositories. **A repository named `sks` is served at `einsteinhain.com/sks/` when your user site has the custom domain `einsteinhain.com`.**
+The site is hosted on GitHub Pages; the privacy policy's section “Diese Website / This website” describes this. Hosting it at `einsteinhain.com/sks/` needs two GitHub repositories. **A repository named `sks` is served at `einsteinhain.com/sks/` when your user site has the custom domain `einsteinhain.com`.** The URL path comes from the GitHub repository name, not from the local folder name (`web`), so the folder can be renamed freely, but renaming the repository changes every public URL.
 
 Below, `<username>` is your GitHub username. Your git user name is `hannesd27`; use your actual GitHub username if it is different.
 
@@ -64,7 +64,7 @@ Below, `<username>` is your GitHub username. Your git user name is `hannesd27`; 
 2. Push this folder:
 
    ```bash
-   cd /Users/hd/apps/einsteinhain/sks && git add -A && git commit -m "SKS privacy policy website" && git branch -M main && git remote add origin https://github.com/<username>/sks.git && git push -u origin main
+   cd /Users/hd/apps/einsteinhain/web && git add -A && git commit -m "SKS privacy policy website" && git branch -M main && git remote add origin https://github.com/<username>/sks.git && git push -u origin main
    ```
 
 3. Repository → *Settings → Pages → Build and deployment → Source*: choose **GitHub Actions**. The workflow `.github/workflows/pages.yml` then publishes on every push to `main`. **Don't** set a custom domain in this repository.
