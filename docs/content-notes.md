@@ -9,22 +9,23 @@ This file records what the privacy policy is based on. Update it whenever the ap
 - Bundle ID / Android application ID: `com.einsteinhain.sks`.
 - Current version: 1.0.0.
 - Offline learning / exam-preparation app with fixed educational and exam content bundled with the app.
-- Users rate their own answers as **Wrong**, **Partly correct** or **Perfect**. The resulting learning progress is stored locally on the device.
+- Users rate their own answers as **Wrong**, **Partly correct** or **Correct**. The resulting learning progress is stored locally on the device.
 - A progress record contains the question ID, the self-assessment and the date/time of the assessment.
 - The app has a function to delete all learning progress. The fixed content stays in the app after deletion.
 - The app does not intentionally send learning progress to a server, and does not intentionally collect or transmit personal data.
 - The app does **not** have: an account system, social features, advertising, analytics, tracking, subscriptions, in-app purchases, payments, AI-generated questions, automatic answer grading, cloud synchronization, server-side user profiles or network-based features.
 - The Android release currently requests no Android permissions.
 - The app does not intentionally access the camera, microphone, photos, contacts, location, health data, calendar, Bluetooth, advertising identifiers, or device identifiers for tracking.
-- The app UI is German only (`locale: Locale('de')`). The rating labels are “Falsch”, “Teilweise richtig” and “Perfekt”. The delete button is labelled “Alle Fortschrittsdaten löschen” and is on the “Übersicht” screen (`lib/ui/app_strings.dart`, `lib/ui/dashboard_screen.dart`).
+- The app UI is German only (`locale: Locale('de')`). The rating labels are “Falsch”, “Teilweise richtig” and “Richtig” (renamed from “Perfekt” in app commit `4910da9`). The delete button is labelled “Alle Fortschrittsdaten löschen” and is on the “Übersicht” screen (`lib/ui/app_strings.dart`, `lib/ui/dashboard_screen.dart`).
 - Provider: Hannes Diethelm, Pettenkoferstrasse 42, 10247 Berlin, Germany; info@einsteinhain.com (supplied by the developer). URLs: German policy (primary, given to the stores) `https://einsteinhain.com/sks/datenschutz/`, English translation `https://einsteinhain.com/sks/privacy-policy/`, Impressum `https://einsteinhain.com/sks/impressum/`.
 - OS backups may include locally stored app data under normal platform backup behavior. **Decision:** the app's backup configuration stays unchanged, and the policy discloses this in plain language.
 
-## 2. Observed in the app source code (at `/Users/hd/apps/sks`, commit `0d6d7b3`)
+## 2. Observed in the app source code (at `/Users/hd/apps/sks`, re-checked at commit `55dee3e` on 1 October 2026)
 
 These points were read from the source and match the facts above.
 
-- The only non-SDK runtime dependency in `pubspec.yaml` is `shared_preferences` (plus `flutter_localizations`).
+- The non-SDK runtime dependencies in `pubspec.yaml` are `shared_preferences` and `url_launcher` (plus `flutter_localizations`). `url_launcher` only opens the policy URL in the external browser (Übersicht → „Datenschutzerklärung“); the app itself makes no network requests.
+- The light/dark appearance toggle is not persisted.
 - Progress is stored under one `shared_preferences` key (`learning_progress_v1`). Each stored assessment holds the question ID, the assessment and its date/time (`recordAssessment(questionId, assessment, assessedAt)`).
 - "Delete all progress" removes that key (`deleteAll()` → `remove(storageKey)`).
 - The release `android/app/src/main/AndroidManifest.xml` declares no `<uses-permission>`. `INTERNET` appears only in the `debug` and `profile` manifests, which are used for development and aren't part of the release build.
@@ -33,21 +34,27 @@ These points were read from the source and match the facts above.
 
 ## 3. Policy sections and their factual basis
 
-The German page (`datenschutz/`) is the primary text. The English page (`privacy-policy/`) has the same sections in the same order.
+The German page (`datenschutz/`) is the primary text. The English page (`privacy-policy/`) has the same sections in the same order and states that the German version prevails. Restructured on 1 October 2026 into a full Art. 13 GDPR notice (summary box, table of contents, numbered sections).
 
 | Policy section | Statements | Basis |
 |---|---|---|
-| Header | App name, platforms, provider, dates | §1 |
-| What the app does | Offline learning / exam-prep app; content built in | §1 |
-| Data stored on your device | German rating labels; question ID, rating, date/time; stored locally so the app remembers progress | §1, confirmed in §2 |
-| Data collection and sharing | No intentional collection of personal data; progress/personal data not sent to the developer or others; developer has no access; no accounts, analytics, ads, tracking, cloud sync, server-side profiles, in-app purchases or payments | §1 (no network features, no backend) |
-| Permissions and device access | No intentional use of camera, microphone, photos, contacts, location, health data or similar; no Android permissions in the current release | §1, confirmed in §2 |
-| Deletion and backups | Delete button and where it is; content remains; progress otherwise stays until app data is cleared or the app is uninstalled; OS backups may include app data; in-app deletion does not necessarily remove existing backups | §1, §2; standard platform behavior |
-| Apple, Google and your operating system | They process information under their own policies; they may give the developer crash reports and usage statistics, used only to fix problems | Platform facts; decision 4.4 |
-| This website / Diese Website | No cookies, analytics or tracking on the site; hosted on GitHub Pages (GitHub, Inc., USA); GitHub processes the IP address to deliver the site and stores it for security; possible transfer to the USA under the EU–US Data Privacy Framework; retention per GitHub's privacy statement | The site's code; GitHub Pages documentation; GitHub's DPF certification; decisions 4.7 and 4.11 |
-| Children | App works the same for all users regardless of age | Decision 4.2 |
-| Your rights | GDPR rights (Art. 15–20), the right to complain to a supervisory authority (Art. 77), and a separately highlighted right to object (Art. 21) | Decisions 4.3 and 4.6 |
-| Contact and changes | Controller name, address, email; handling of email enquiries; policy may be updated | §1; decision 4.3 |
+| Header, summary | Controller, dates; plain-language summary | §1 |
+| 1 Controller and contact | Name, address, email; no DPO (Art. 37 GDPR, §38 BDSG thresholds not met) | §1; decision 14 |
+| 2 Scope | App, website, email; definition of personal data | — |
+| 3.1 No data transmission | Offline; no network connections, accounts, cloud, ads, third-party SDKs, tracking IDs, purchases | §1, §2 |
+| 3.2 Progress on device | Question ID, rating, date/time; local only (UserDefaults/SharedPreferences); theme not stored; no processing by us, fallback legal basis Art. 6(1)(b)/(f); §25(2) no. 2 TDDDG | §2; decision 3 |
+| 3.3 Permissions | None requested; no INTERNET permission in release | §2 |
+| 3.4 Opening the policy | Browser makes the connection; section 6 applies | §2 (`url_launcher`) |
+| 3.5 Deletion and backups | Delete button and location; uninstall; OS backups | §1, §2 |
+| 4 App stores | Download by Apple/Google as independent controllers; crash/usage statistics (opt-in, Art. 6(1)(f), opt-out paths); store reviews | Decision 4; decision 15 |
+| 5 Email | Data, legal basis, deletion criteria; Namecheap as processor | Decision 3; decision 16 |
+| 6 Website | Static, no cookies/JS/third-party content; GitHub Pages IP logging; Art. 6(1)(f) | Decisions 7, 11 |
+| 7 Recipients and transfers | GitHub (DPF, Art. 45); Namecheap (SCCs 2021/914, Art. 46(2)(c)); no selling | Decisions 11, 16 |
+| 8 No automated decisions | Art. 22; no obligation to provide data (Art. 13(2)(e)) | §1 |
+| 9 Security | OS app sandbox; HTTPS | §2 |
+| 10 Children | Works the same for all ages; no data collected from minors | Decision 2 |
+| 11 Rights | Art. 15–18, 20, 21; Art. 11 note for on-device data; separate right-to-object box; complaint to Berlin DPA | Decisions 3, 6, 17 |
+| 12 Changes | Current version applies; consent would be asked in-app before any future processing requiring it | — |
 
 ## 4. Decisions (30 September 2026)
 
@@ -70,6 +77,11 @@ These decisions are based on the primary sources listed below. **They were made 
 12. **Publishing only the pages.** GitHub Pages is deployed through a GitHub Actions workflow that publishes only `index.html`, `css/`, `icons/`, `datenschutz/`, `privacy-policy/` and `impressum/`. That keeps these notes off the website. They are still visible in the public repository.
 13. **Trader status: not a trader** (the developer's decision). This goes in both store forms (`store-submission.md`). If the app later earns money or is run as a business, the trader status and the Impressum must be reviewed.
 
+14. **No data protection officer.** A single-person controller without core activities under Art. 37(1) GDPR and below the §38 BDSG threshold (20 persons) need not appoint one; the policy says so.
+15. **Store reviews and opt-out paths** (1 October 2026). Public store reviews (with the reviewer's display name) are visible to the developer and can be answered, so the policy mentions them. It also tells users where to switch off sharing diagnostics with developers on iOS and Android.
+16. **Email provider: Namecheap Private Email** (MX `mx1/mx2.privateemail.com`, checked 1 October 2026). Namecheap, Inc. (USA) acts as processor; its Data Processing Addendum is accepted with its terms of service and includes the EU Standard Contractual Clauses (Module 2, Decision 2021/914). No DPF certification for Namecheap was found, so the policy relies on the SCCs and offers a copy on request (Art. 13(1)(f) GDPR). If the mailbox forwards to another provider (e.g. Gmail), name that provider too.
+17. **Supervisory authority.** The policy names the Berliner Beauftragte für Datenschutz und Informationsfreiheit (Alt-Moabit 59–61, 10555 Berlin), the authority for a Berlin-based controller, and reminds users they may complain in their own member state.
+
 Sources used:
 - Apple, App privacy details: https://developer.apple.com/app-store/app-privacy-details/
 - Google Play, Data safety section: https://support.google.com/googleplay/android-developer/answer/10787469
@@ -81,6 +93,8 @@ Sources used:
 - GitHub Pages custom domains: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages
 - GitHub privacy statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
 - Data Privacy Framework participant list: https://www.dataprivacyframework.gov/
+- Namecheap Data Processing Addendum: https://www.namecheap.com/legal/universal/data-processing-addendum/
+- Berlin DPA, complaints: https://www.datenschutz-berlin.de/buergerinnen-und-buerger/beschwerde/einreichen-einer-beschwerde/
 
 ## 5. Remaining open items
 
