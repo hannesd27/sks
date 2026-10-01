@@ -32,7 +32,7 @@ Always use the URLs **with** the trailing slash.
 ├── privacy-policy/index.html English translation
 ├── impressum/index.html      Impressum (§ 5 DDG)
 ├── css/styles.css            the only stylesheet (light and dark mode)
-├── icons/                    tab and home-screen icons (the app icon, from the app repo)
+├── icons/icon.png            tab and home-screen icon (the app icon, light blue)
 ├── .github/workflows/pages.yml  publishes only the files above to GitHub Pages
 ├── docs/                     (not published on the website)
 │   ├── content-notes.md      facts, decisions, sources
